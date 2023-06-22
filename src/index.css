@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  --slack-color: #3f0f40;
+  overflow: hidden;
+  margin: 0;
+  font-family: "Helvetica_Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
