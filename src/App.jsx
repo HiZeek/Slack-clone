@@ -1,24 +1,35 @@
 import { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import { styled } from "styled-components";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
     <Fragment>
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Header />} />
-          {/* <Route path="/photography" element={<Photography />} />
+      <Header />
+      <AppBody>
+        <Sidebar />
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<p>Home Paage</p>} />
+            {/* <Route path="/photography" element={<Photography />} />
           <Route
             path="/photography/:photographyId"
             element={<PhotographyCategory />}
           />
           <Route path="/film-direction" element={<FilmDirection />} />
           <Route path="/project/:projectId" element={<ProjectDetails />} /> */}
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </AppBody>
     </Fragment>
   );
 }
 
 export default App;
+
+const AppBody = styled.div`
+  display: flex;
+  height: 100vh;
+`;
