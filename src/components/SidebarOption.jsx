@@ -6,16 +6,15 @@ import { useDispatch } from "react-redux";
 import { enterRoom } from "../features/appSlice";
 
 const SidebarOption = ({ Icon, title, addChannelOption, id }) => {
+  // console.log(id);
   const dispatch = useDispatch();
   const addChannel = async () => {
     const channelName = prompt("Please enter the channel name");
 
     if (channelName) {
-      const getChannelName = await addDoc(collection(db, "rooms"), {
+      await addDoc(collection(db, "rooms"), {
         name: channelName,
       });
-
-      getChannelName();
     }
   };
 

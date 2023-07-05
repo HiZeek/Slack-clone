@@ -1,6 +1,5 @@
 import {
   Add,
-  // AppsIcon,
   BookmarkBorder,
   Create,
   Drafts,

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import { styled } from "styled-components";
 import Sidebar from "./components/Sidebar";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Sidebar />
         <Router>
           <Routes>
-            <Route exact path="/" element={<p>Home Paage</p>} />
+            <Route exact path="/" element={<Chat />} />
             {/* <Route path="/photography" element={<Photography />} />
           <Route
             path="/photography/:photographyId"
