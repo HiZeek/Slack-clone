@@ -6,12 +6,9 @@ import { db } from "../firebase";
 import { serverTimestamp } from "firebase/firestore";
 import { doc, addDoc, collection } from "firebase/firestore";
 
-const ChatInput = ({ channelName, channelId }) => {
+const ChatInput = ({ channelName, channelId, chatRef }) => {
   const [input, setInput] = useState("");
-  //   console.log(channelId);
   const sendMessage = async (e) => {
-    // console.log("clicked");
-
     e.preventDefault();
     if (!channelId) {
       return false;
@@ -29,6 +26,10 @@ const ChatInput = ({ channelName, channelId }) => {
         "https://media.licdn.com/dms/image/C4D03AQHmUQiBqJppXA/profile-displayphoto-shrink_800_800/0/1661721817933?e=1693440000&v=beta&t=fPUawkZ4Giq1Agj0DYEfp_P7NCQVGlNM0qtTvA9025s",
     });
 
+    chatRef?.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+
     setInput("");
   };
 
@@ -38,7 +39,7 @@ const ChatInput = ({ channelName, channelId }) => {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={`Message #ROOM`}
+          placeholder={`Message ${channelName}`}
           type="text"
         />
         <Button hidden type="submit" onClick={sendMessage}>
