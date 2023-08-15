@@ -15,20 +15,22 @@ import AppsIcon from "@mui/icons-material/Apps";
 import { styled } from "styled-components";
 import SidebarOption from "./SidebarOption";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import { collection } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Sidebar = () => {
-  const [channels, loading, error] = useCollection(collection(db, "rooms"));
+  const [channels] = useCollection(collection(db, "rooms"));
+  const [user] = useAuthState(auth);
 
   return (
     <SidebarContainer>
       <SidebarHeader>
         <SidebarInfo>
-          <h2>Zeek&apos;s Hub</h2>
+          <h2>Tech Hub</h2>
           <h3>
             <FiberManualRecord />
-            Isaac Idibia
+            {user.displayName}
           </h3>
         </SidebarInfo>
         <Create />

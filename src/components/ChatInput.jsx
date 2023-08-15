@@ -2,12 +2,15 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { styled } from "styled-components";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import { serverTimestamp } from "firebase/firestore";
 import { doc, addDoc, collection } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const ChatInput = ({ channelName, channelId, chatRef }) => {
   const [input, setInput] = useState("");
+  const [user] = useAuthState(auth);
+
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!channelId) {
@@ -21,9 +24,8 @@ const ChatInput = ({ channelName, channelId, chatRef }) => {
     await addDoc(subcollectionRef, {
       message: input,
       timestamp: serverTimestamp(),
-      user: "Zeek",
-      userImage:
-        "https://media.licdn.com/dms/image/C4D03AQHmUQiBqJppXA/profile-displayphoto-shrink_800_800/0/1661721817933?e=1693440000&v=beta&t=fPUawkZ4Giq1Agj0DYEfp_P7NCQVGlNM0qtTvA9025s",
+      user: user.displayName,
+      userImage: user.photoURL,
     });
 
     chatRef?.current?.scrollIntoView({

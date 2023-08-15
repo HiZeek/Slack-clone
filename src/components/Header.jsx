@@ -4,16 +4,20 @@ import {
   SearchOutlined,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { styled } from "styled-components";
+import { auth } from "../firebase";
 
 const Header = () => {
+  const [user] = useAuthState(auth);
   return (
     <HeaderContainer>
       {/* Header left */}
       <HeaderLeft>
         <HeaderAvatar
-        // onClick={}
-        // src=""
+          onClick={() => auth.signOut()}
+          src={user?.photoURL}
+          alt={user?.displayName}
         />
         <AccessTimeOutlined />
       </HeaderLeft>
@@ -21,7 +25,7 @@ const Header = () => {
       {/* Header Search */}
       <HeaderSearch>
         <SearchOutlined />
-        <input type="text" placeholder="Search Zeek's Hub" />
+        <input type="text" placeholder="Search Tech Hub" />
       </HeaderSearch>
 
       {/* Header Right */}

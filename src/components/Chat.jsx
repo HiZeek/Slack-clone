@@ -5,9 +5,10 @@ import { selectRoomId } from "../features/appSlice";
 import ChatInput from "./ChatInput";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
-import { collection, doc, orderBy } from "firebase/firestore";
+import { collection, doc, orderBy, query } from "firebase/firestore";
 import Message from "./Message";
 import { useEffect, useRef } from "react";
+import WorkSpace from "../assets/workspace.svg";
 
 const Chat = () => {
   const chatRef = useRef(null);
@@ -16,7 +17,7 @@ const Chat = () => {
 
   const [roomDetails] = useDocument(roomId && doc(db, "rooms", roomId));
   const [roomMessages, loading] = useCollection(
-    roomId && collection(db, "rooms", roomId, "messages"),
+    roomId && query(collection(db, "rooms", roomId, "messages")),
     orderBy("timestamp", "asc")
   );
 
@@ -28,7 +29,7 @@ const Chat = () => {
 
   return (
     <ChatContainer>
-      {roomDetails && roomMessages && (
+      {roomDetails && roomMessages ? (
         <>
           <Header>
             <HeaderLeft>
@@ -64,6 +65,11 @@ const Chat = () => {
             channelId={roomId}
           />
         </>
+      ) : (
+        <ChannelContainer>
+          <img src={WorkSpace} alt="" />
+          <h4>Please Select or Add a Channel</h4>
+        </ChannelContainer>
       )}
     </ChatContainer>
   );
@@ -114,6 +120,17 @@ const ChatContainer = styled.div`
 `;
 
 const ChatMessages = styled.div``;
+const ChannelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > img {
+    width: 500px;
+    height: 500px;
+  }
+`;
+
 const ChatButton = styled.div`
   padding-bottom: 200px;
 `;
