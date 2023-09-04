@@ -26,7 +26,6 @@ const SidebarOption = ({ Icon, title, addChannelOption, id }) => {
           roomId: id,
         })
       );
-      dispatch(toggleSidebar());
     }
   };
   return (
