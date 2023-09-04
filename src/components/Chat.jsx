@@ -16,10 +16,15 @@ const Chat = () => {
   const roomId = useSelector(selectRoomId);
 
   const [roomDetails] = useDocument(roomId && doc(db, "rooms", roomId));
+
   const [roomMessages, loading] = useCollection(
-    roomId && query(collection(db, "rooms", roomId, "messages")),
-    orderBy("timestamp", "asc")
+    roomId &&
+      query(
+        collection(db, "rooms", roomId, "messages"),
+        orderBy("timestamp", "asc")
+      )
   );
+  console.log("room message", roomMessages);
 
   useEffect(() => {
     chatRef?.current?.scrollIntoView({
@@ -125,9 +130,17 @@ const ChannelContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   > img {
-    width: 500px;
-    height: 500px;
+    max-width: 500px;
+    height: auto;
+  }
+
+  @media (max-width: 700px) {
+    > img {
+      max-width: 500px;
+      height: auto;
+    }
   }
 `;
 

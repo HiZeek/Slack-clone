@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { enterRoom } from "../features/appSlice";
+import { toggleSidebar } from "../features/sidebarSlice";
 
 const SidebarOption = ({ Icon, title, addChannelOption, id }) => {
   // console.log(id);
@@ -25,6 +26,7 @@ const SidebarOption = ({ Icon, title, addChannelOption, id }) => {
           roomId: id,
         })
       );
+      dispatch(toggleSidebar());
     }
   };
   return (

@@ -9,9 +9,12 @@ import { auth } from "./firebase";
 import Login from "./components/Login";
 import Logo from "../src/assets/logo.png";
 import { BarLoader } from "react-spinners";
+import { selectSidebarState } from "./features/sidebarSlice";
+import { useSelector } from "react-redux";
 
 function App() {
   const [user, loading] = useAuthState(auth);
+  const sidebarToggle = useSelector(selectSidebarState);
 
   if (loading) {
     return (
@@ -39,7 +42,7 @@ function App() {
         <>
           <Header />
           <AppBody>
-            <Sidebar />
+            {sidebarToggle && <Sidebar />}
             <Router>
               <Routes>
                 <Route exact path="/" element={<Chat />} />
@@ -57,6 +60,10 @@ export default App;
 const AppBody = styled.div`
   display: flex;
   height: 100vh;
+
+  @media (max-width: 700px) {
+    display: relative;
+  }
 `;
 
 const AppLoading = styled.div`

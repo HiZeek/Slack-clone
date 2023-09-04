@@ -18,13 +18,16 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { auth, db } from "../firebase";
 import { collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useSelector } from "react-redux";
+import { selectSidebarState } from "../features/sidebarSlice";
 
 const Sidebar = () => {
   const [channels] = useCollection(collection(db, "rooms"));
+  const sidebarToggle = useSelector(selectSidebarState);
   const [user] = useAuthState(auth);
 
   return (
-    <SidebarContainer>
+    <SidebarContainer sidebarToggle={sidebarToggle}>
       <SidebarHeader>
         <SidebarInfo>
           <h2>Tech Hub</h2>
@@ -70,6 +73,12 @@ const SidebarContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid #49274b;
+  }
+
+  @media (max-width: 700px) {
+    position: absolute;
+    z-index: 999;
+    flex: 1;
   }
 `;
 
